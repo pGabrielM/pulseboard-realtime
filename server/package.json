@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Socket.IO and PostgreSQL server for real-time activity updates.",
   "scripts": {
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "start": "node app",
+    "lint": "node --check app.js"
   },
   "main": "app.js",
   "license": "MIT",
@@ -11,6 +13,7 @@
     "@socket.io/postgres-adapter": "^0.3.0",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",

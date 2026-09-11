@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -17,11 +19,11 @@ const io = new Server(server, {
 const { Pool } = require('pg')
 
 const pool = new Pool({
-  user: 'admin',
-  host: 'localhost',
-  database: 'default',
-  password: 'secret', //secret
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: Number(process.env.DB_PORT ?? 5432),
 })
 
 const getUsersA = (_request, response) => {
@@ -97,6 +99,8 @@ pool.connect((err, pool) => {
   }
 })
 
-server.listen(3000, () => {
-  console.log("Server is running")
+const PORT = process.env.PORT ?? 3000;
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`)
 });
