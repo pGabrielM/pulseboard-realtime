@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "pulseboard-realtime-server",
   "version": "1.0.0",
-  "description": "express-test",
+  "description": "Socket.IO and PostgreSQL server for real-time activity updates.",
   "scripts": {
     "dev": "nodemon app"
   },

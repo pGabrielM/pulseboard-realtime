@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "pulseboard-realtime-client",
   "private": true,
   "version": "0.0.0",
   "proxy": "http://localhost:3000",
