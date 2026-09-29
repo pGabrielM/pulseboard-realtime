@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String       @id @default(cuid())
+  name         String
+  email        String       @unique
+  passwordHash String       @map("password_hash")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  monitors     Monitor[]
+  statusPages  StatusPage[]
+
+  @@map("users")
+}
+
+enum MonitorStatus {
+  PENDING
+  UP
+  DOWN
+  PAUSED
+}
+
+enum HttpMethod {
+  GET
+  HEAD
+}
+
+model Monitor {
+  id              String        @id @default(cuid())
+  ownerId         String        @map("owner_id")
+  name            String
+  url             String
+  method          HttpMethod    @default(GET)
+  expectedStatus  Int           @default(200) @map("expected_status")
+  keyword         String?
+  intervalSeconds Int           @default(300) @map("interval_seconds")
+  timeoutMs       Int           @default(10000) @map("timeout_ms")
+  status          MonitorStatus @default(PENDING)
+  lastCheckedAt   DateTime?     @map("last_checked_at")
+  lastLatencyMs   Int?          @map("last_latency_ms")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  owner           User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  checks          Check[]
+  incidents       Incident[]
+  statusPages     StatusPage[]
+
+  @@index([ownerId])
+  @@index([status, lastCheckedAt])
+  @@map("monitors")
+}
+
+model Check {
+  id         String   @id @default(cuid())
+  monitorId  String   @map("monitor_id")
+  checkedAt  DateTime @default(now()) @map("checked_at")
+  ok         Boolean
+  statusCode Int?     @map("status_code")
+  latencyMs  Int?     @map("latency_ms")
+  error      String?
+  monitor    Monitor  @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+
+  @@index([monitorId, checkedAt])
+  @@map("checks")
+}
+
+model Incident {
+  id         String    @id @default(cuid())
+  monitorId  String    @map("monitor_id")
+  startedAt  DateTime  @map("started_at")
+  resolvedAt DateTime? @map("resolved_at")
+  cause      String
+  monitor    Monitor   @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+
+  @@index([monitorId, startedAt])
+  @@map("incidents")
+}
+
+model StatusPage {
+  id          String    @id @default(cuid())
+  ownerId     String    @map("owner_id")
+  slug        String    @unique
+  title       String
+  description String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  monitors    Monitor[]
+
+  @@index([ownerId])
+  @@map("status_pages")
+}
