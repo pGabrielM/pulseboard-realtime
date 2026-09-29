@@ -1,48 +1,43 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { Logo } from '@/components/logo'
-import { MobileNav } from '@/components/shell/mobile-nav'
-import { SidebarNav } from '@/components/shell/sidebar-nav'
+import { TopNav, UtcClock } from '@/components/shell/top-nav'
 import { UserMenu } from '@/components/shell/user-menu'
 import { siteConfig } from '@/config/site'
 import { requireUser } from '@/lib/session'
 
+// Layout "console": barra superior com abas, sem sidebar — o conteúdo usa toda a largura.
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const user = await requireUser()
   const isDemo = user.email === siteConfig.demo.email
 
   return (
-    <div className="flex min-h-screen">
-      <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-zinc-200 bg-white px-3 py-4 lg:flex">
-        <Link href="/app" className="mb-6 px-2">
-          <Logo />
-        </Link>
-        <SidebarNav />
-        <div className="mt-auto rounded-xl border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-500">
-          Projeto open source por{' '}
-          <a href={siteConfig.author.url} className="font-medium text-zinc-700 hover:underline">
-            {siteConfig.author.name}
-          </a>
-          .
-        </div>
-      </aside>
-      <div className="flex min-w-0 flex-1 flex-col">
-        {isDemo && (
-          <div className="bg-zinc-900 px-4 py-1.5 text-center text-xs text-zinc-300">
-            Você está na conta demo — fique à vontade para criar, editar e apagar dados.
-          </div>
-        )}
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-zinc-200 bg-white/85 px-4 backdrop-blur sm:px-6">
-          <MobileNav />
-          <div className="lg:hidden">
-            <Logo compact />
-          </div>
-          <div className="ml-auto">
+    <div className="min-h-screen">
+      <header className="sticky top-0 z-30 border-b border-zinc-200 bg-zinc-50/90 backdrop-blur">
+        <div className="mx-auto flex h-12 max-w-7xl items-center gap-4 px-4 sm:px-6">
+          <Link href="/app">
+            <Logo />
+          </Link>
+          <span className="hidden h-4 w-px bg-zinc-200 sm:block" />
+          <span className="hidden items-center gap-1.5 font-mono text-[11px] tracking-wider text-brand-500 uppercase sm:flex">
+            <span className="size-1.5 animate-pulse rounded-full bg-brand-500" />
+            monitorando
+          </span>
+          <div className="ml-auto flex items-center gap-4">
+            <UtcClock />
             <UserMenu name={user.name} email={user.email} />
           </div>
-        </header>
-        <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">{children}</main>
-      </div>
+        </div>
+        <div className="mx-auto max-w-7xl px-2 sm:px-4">
+          <TopNav />
+        </div>
+      </header>
+      {isDemo && (
+        <div className="border-b border-zinc-200 bg-brand-50 px-4 py-1.5 text-center font-mono text-[11px] tracking-wide text-brand-700">
+          CONTA DEMO — crie, pause e apague monitores à vontade. As checagens são reais.
+        </div>
+      )}
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">{children}</main>
     </div>
   )
 }

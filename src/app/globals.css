@@ -1,38 +1,107 @@
 @import 'tailwindcss';
 
+/*
+ * PulseBoard — identidade "sala de operações": fundo grafite, verde-sinal,
+ * números e rótulos em fonte monoespaçada, cantos retos. A escala zinc/white é
+ * redefinida (invertida) pra que toda a UI fique escura sem mudar os componentes.
+ */
 @theme inline {
-  --color-brand-50: var(--color-emerald-50);
-  --color-brand-100: var(--color-emerald-100);
-  --color-brand-200: var(--color-emerald-200);
-  --color-brand-300: var(--color-emerald-300);
-  --color-brand-400: var(--color-emerald-400);
-  --color-brand-500: var(--color-emerald-500);
-  --color-brand-600: var(--color-emerald-600);
-  --color-brand-700: var(--color-emerald-700);
-  --color-brand-800: var(--color-emerald-800);
-  --color-brand-900: var(--color-emerald-900);
-  --color-brand-950: var(--color-emerald-950);
+  --color-brand-50: rgb(57 217 138 / 0.08);
+  --color-brand-100: rgb(57 217 138 / 0.14);
+  --color-brand-200: rgb(57 217 138 / 0.28);
+  --color-brand-300: #7ff0b5;
+  --color-brand-400: #5ee6a1;
+  --color-brand-500: #39d98a;
+  --color-brand-600: #39d98a;
+  --color-brand-700: #2bc47a;
+  --color-brand-800: #9ff5c9;
+  --color-brand-900: #c9fbe1;
+  --color-brand-950: #04130b;
+
+  --color-white: #11161d;
+  --color-black: #000;
+  --color-zinc-50: #0b0f14;
+  --color-zinc-100: #1a212b;
+  --color-zinc-200: #243040;
+  --color-zinc-300: #33415a;
+  --color-zinc-400: #6b7a90;
+  --color-zinc-500: #8a98ad;
+  --color-zinc-600: #a9b5c7;
+  --color-zinc-700: #c7d0dd;
+  --color-zinc-800: #dde3ec;
+  --color-zinc-900: #eef2f7;
+  --color-zinc-950: #f7f9fc;
+
+  --color-emerald-50: rgb(57 217 138 / 0.1);
+  --color-emerald-200: rgb(57 217 138 / 0.3);
+  --color-emerald-400: #5ee6a1;
+  --color-emerald-500: #39d98a;
+  --color-emerald-600: #39d98a;
+  --color-emerald-700: #5ee6a1;
+  --color-emerald-900: #c9fbe1;
+  --color-red-50: rgb(255 92 92 / 0.1);
+  --color-red-200: rgb(255 92 92 / 0.35);
+  --color-red-400: #ff7a7a;
+  --color-red-500: #ff5c5c;
+  --color-red-600: #ff6b6b;
+  --color-red-700: #ff8f8f;
+  --color-red-900: #ffd6d6;
+  --color-amber-50: rgb(255 184 77 / 0.1);
+  --color-amber-200: rgb(255 184 77 / 0.35);
+  --color-amber-400: #ffc46b;
+  --color-amber-600: #ffb84d;
+  --color-amber-700: #ffc46b;
+  --color-sky-50: rgb(90 170 255 / 0.1);
+  --color-sky-200: rgb(90 170 255 / 0.3);
+  --color-sky-700: #8cc4ff;
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-face), ui-monospace, monospace;
+  --font-display: var(--font-mono-face), ui-monospace, monospace;
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 body {
   @apply bg-zinc-50 text-zinc-900 antialiased;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.018) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.01em;
+}
+
+/* Números e métricas sempre em mono (tabelas, cards, latências). */
+.tabular-nums,
+.font-mono {
+  font-family: var(--font-mono);
 }
 
 ::selection {
-  @apply bg-brand-200 text-brand-950;
+  background: rgb(57 217 138 / 0.3);
 }
 
 @layer components {
   .field-label {
-    @apply mb-1.5 block text-sm font-medium text-zinc-700;
+    @apply mb-1.5 block font-mono text-[11px] font-medium tracking-wider text-zinc-500 uppercase;
   }
   .field-error {
     @apply mt-1 text-xs text-red-600;
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] tracking-[0.2em] text-brand-500 uppercase;
   }
 }
