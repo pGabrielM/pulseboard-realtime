@@ -1,4 +1,4 @@
-# PulseBoard
+# Pulse Board
 
 ![CI](https://github.com/pGabrielM/pulseboard-realtime/actions/workflows/ci.yml/badge.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square)
@@ -11,6 +11,8 @@ Add a URL, choose how often to check it, and PulseBoard tracks availability and 
 and closes incidents on its own, and gives your customers a status page with 90 days of history.
 
 ![Dashboard](public/screenshots/dashboard.png)
+
+**Live demo:** [pulseboard-realtime.vercel.app/demo](https://pulseboard-realtime.vercel.app/demo) — signs in straight to a sample account.
 
 > **Try it:** open the app and click **"Explorar com a conta demo"**. The demo monitors real public
 > URLs (and one with an expired SSL certificate, so you can see an ongoing incident).
@@ -57,7 +59,7 @@ GET /app/stream      (SSE, per user)      ──► runDueChecks(owner) + snapsh
 
 ## Running locally
 
-Requirements: Node.js 20+, Docker.
+Requirements: Node.js 22+, Docker.
 
 ```bash
 cp .env.example .env.local        # set AUTH_SECRET and CRON_SECRET

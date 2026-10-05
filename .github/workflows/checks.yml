@@ -12,4 +12,4 @@ jobs:
     if: ${{ vars.APP_URL != '' }}
     steps:
       - run: |
-          curl -fsS -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "${{ vars.APP_URL }}/api/cron/check"
+          curl -fsS --retry 2 --max-time 60 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "${{ vars.APP_URL }}/api/cron/check"
