@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: 'PulseBoard',
+  name: 'Pulse Board',
   shortTagline: 'monitoramento de uptime em tempo real',
   tagline: 'Saiba que o seu site caiu antes do seu cliente — e mostre a todos quando ele voltou.',
   description:
