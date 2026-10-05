@@ -12,7 +12,7 @@ and closes incidents on its own, and gives your customers a status page with 90 
 
 ![Dashboard](public/screenshots/dashboard.png)
 
-**Live demo:** [pulseboard-realtime.vercel.app/demo](https://pulseboard-realtime.vercel.app/demo) — signs in straight to a sample account.
+**Live demo:** [pulseboard.letinfo.dev/demo](https://pulseboard.letinfo.dev/demo) — signs in straight to a sample account.
 
 > **Try it:** open the app and click **"Explorar com a conta demo"**. The demo monitors real public
 > URLs (and one with an expired SSL certificate, so you can see an ongoing incident).
