@@ -1,4 +1,4 @@
-name: Scheduled checks
+name: Cron Check
 
 # Free scheduler for the hosted demo: pings the cron endpoint every 5 minutes.
 on:
@@ -12,5 +12,8 @@ jobs:
     timeout-minutes: 5
     if: ${{ vars.APP_URL != '' }}
     steps:
-      - run: |
-          curl -fsS --retry 2 --max-time 60 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "${{ vars.APP_URL }}/api/cron/check"
+      - name: Ping cron endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          APP_URL: ${{ vars.APP_URL }}
+        run: curl -fsS --retry 2 --max-time 60 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/check"
