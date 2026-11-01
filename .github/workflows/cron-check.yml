@@ -1,4 +1,4 @@
-name: Cron Check
+name: Scheduled checks
 
 # Free scheduler for the hosted demo: pings the cron endpoint every 5 minutes.
 on:
@@ -9,6 +9,7 @@ on:
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     if: ${{ vars.APP_URL != '' }}
     steps:
       - run: |
