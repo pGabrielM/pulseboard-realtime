@@ -45,7 +45,7 @@ GET /app/stream      (SSE, per user)      ──► runDueChecks(owner) + snapsh
 ```
 
 - **No always-on worker needed.** Checks run from a protected cron endpoint (GitHub Actions calls
-  it every 5 minutes for free — `.github/workflows/checks.yml`) *and* from the SSE stream while a
+  it every 5 minutes for free — `.github/workflows/cron-check.yml`) *and* from the SSE stream while a
   dashboard is open, so an open dashboard is always fresh.
 - **Optimistic locking** prevents double checks: a runner must win a conditional `UPDATE` on
   `last_checked_at` before checking a monitor, so the cron and several open dashboards never
