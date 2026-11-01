@@ -13,5 +13,7 @@ jobs:
     if: ${{ vars.APP_URL != '' }}
     steps:
       - name: Ping cron endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
-          curl -fsS --retry 2 --max-time 60 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "${{ vars.APP_URL }}/api/cron/check"
+          curl -fsS --retry 2 --max-time 60 -H "Authorization: Bearer ${CRON_SECRET}" "${{ vars.APP_URL }}/api/cron/check"
