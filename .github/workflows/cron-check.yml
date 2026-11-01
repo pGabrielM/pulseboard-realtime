@@ -1,4 +1,4 @@
-name: Cron Check
+name: Scheduled checks
 
 # Free scheduler for the hosted demo: pings the cron endpoint every 5 minutes.
 on:
@@ -6,21 +6,10 @@ on:
     - cron: '*/5 * * * *'
   workflow_dispatch:
 
-permissions:
-  contents: read
-
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false
-
 jobs:
   ping:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     if: ${{ vars.APP_URL != '' }}
     steps:
-      - name: Ping cron endpoint
-        env:
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
-          APP_URL: ${{ vars.APP_URL }}
-        run: curl -fsS --retry 2 --max-time 60 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/check"
+      - run: |
+          curl -fsS --retry 2 --max-time 60 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "${{ vars.APP_URL }}/api/cron/check"
