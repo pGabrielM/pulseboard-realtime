@@ -1,4 +1,4 @@
-# Pulse Board
+# PulseBoard
 
 ![CI](https://github.com/pGabrielM/pulseboard-realtime/actions/workflows/ci.yml/badge.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square)
