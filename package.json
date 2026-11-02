@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev --port 3103",
-    "build": "prisma generate && next build",
+    "build": "node scripts/vercel-build.mjs && next build",
     "start": "next start --port 3103",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
